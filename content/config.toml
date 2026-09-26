@@ -1,20 +1,20 @@
 [site]
-title = "Your Name"
+title = "Hanlin Zhang"
 description = "Personal website — ready for your biography, work, and contact details."
 favicon = "/favicon.svg"
 last_updated = "September 26, 2026"
 
 [author]
-name = "Your Name"
-title = "Researcher / Developer"
-institution = "Your Institution"
+name = "Hanlin Zhang"
+title = "MPhil Student in School of Artificial Intelligece"
+institution = "Chinese University of Hongkong, Shenzhen"
 avatar = "/favicon.svg"
 
 [social]
 # Contact information (leave blank or delete to hide)
 
-email = ""
-location = ""
+email = "hanlinzhang@link.edu.cn"
+location = "Shenzhen"
 location_url = ""
 location_details = []
 google_scholar = ""
