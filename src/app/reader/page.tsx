@@ -38,6 +38,9 @@ export default function PdfReaderPage() {
         return <div className="py-20 text-center text-neutral-500">Loading PDF…</div>;
     }
 
+    const pdfUrl = `${window.location.origin}${file}`;
+    const viewerUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdfUrl)}`;
+
     return (
         <section className="py-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
@@ -51,7 +54,7 @@ export default function PdfReaderPage() {
                     </a>
                 </div>
             </div>
-            <iframe src={`${file}#toolbar=1&navpanes=0&view=FitH`} title={title} className="w-full h-[78vh] min-h-[640px] rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white" />
+            <iframe src={viewerUrl} title={title} className="w-full h-[78vh] min-h-[640px] rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white" />
         </section>
     );
 }
