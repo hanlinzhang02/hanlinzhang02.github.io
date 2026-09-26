@@ -7,7 +7,7 @@ favicon = "/favicon.svg"
 name = "Hanlin Zhang"
 title = "MPhil Student in Artificial Intelligece"
 institution = "Chinese University of Hong Kong, Shenzhen"
-avatar = "/my_photo.png"
+avatar = "/favicon.svg"
 
 [social]
 # Contact information (leave blank or delete to hide)
