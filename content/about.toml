@@ -14,3 +14,22 @@ type = "markdown"
 source = "bio.md"
 title = "About"
 
+[[sections]]
+id = "internships"
+type = "internships"
+title = "Internship Experience"
+
+[[sections.internships]]
+company = "VIVO Communication Technology Co., Ltd. — Robotics Lab"
+date = "05/2026–07/2026"
+role = "Assistant Algorithm Engineer"
+
+[[sections.internships]]
+company = "Eastern Institute of Technology, Ningbo 宁波东方理工大学"
+date = "04/2025–08/2025"
+role = "Research Intern"
+
+[[sections.internships]]
+company = "XXX"
+date = "TBD"
+role = "TBD"
