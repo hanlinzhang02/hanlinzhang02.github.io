@@ -39,7 +39,7 @@ export default function PdfReaderPage() {
     }
 
     const pdfUrl = `${window.location.origin}${file}`;
-    const viewerUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdfUrl)}`;
+    const viewerUrl = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(pdfUrl)}`;
 
     return (
         <section className="py-6">
