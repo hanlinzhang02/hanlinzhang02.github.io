@@ -1,0 +1,25 @@
+[site]
+title = "你的名字"
+description = "个人主页——等待补充你的简介、作品与联系方式。"
+last_updated = "2026年9月26日"
+
+[author]
+name = "你的名字"
+title = "研究者 / 开发者"
+institution = "你的机构"
+
+[social]
+location = ""
+location_details = []
+
+[[navigation]]
+title = "关于我"
+type = "page"
+target = "about"
+href = "/"
+
+[[navigation]]
+title = "简历"
+type = "page"
+target = "cv"
+href = "/cv"

@@ -1,0 +1,15 @@
+type = "about"
+title = "关于我"
+
+[profile]
+research_interests = [
+  "研究",
+  "技术",
+  "创作"
+]
+
+[[sections]]
+id = "about"
+type = "markdown"
+source = "bio.md"
+title = "关于我"
