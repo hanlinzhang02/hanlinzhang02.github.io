@@ -27,6 +27,10 @@ export default function PublicationsList({ config, publications, embedded = fals
     const [selectedYear, setSelectedYear] = useState<number | 'all'>('all');
     const [selectedType, setSelectedType] = useState<string | 'all'>('all');
     const [showFilters, setShowFilters] = useState(false);
+    const [activePublicationId, setActivePublicationId] = useState<string | null>(
+        () => publications.find((pub) => pub.url)?.id ?? null
+    );
+    const activePublication = publications.find((pub) => pub.id === activePublicationId && pub.url);
 
     // Extract unique years and types for filters
     const years = useMemo(() => {
@@ -180,6 +184,22 @@ export default function PublicationsList({ config, publications, embedded = fals
                 </AnimatePresence>
             </div>
 
+            {activePublication?.url && (
+                <section id="publication-reader" className="mb-10">
+                    <h2 className="text-xl font-semibold text-primary mb-4">
+                        <FormattedBibTeXText nodes={activePublication.titleNodes} fallback={activePublication.title} />
+                    </h2>
+                    <div className="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white shadow-sm">
+                        <iframe
+                            key={activePublication.id}
+                            src={`${activePublication.url}#toolbar=0&navpanes=0`}
+                            title={`${activePublication.title} online reader`}
+                            className="w-full h-[80vh] min-h-[720px]"
+                        />
+                    </div>
+                </section>
+            )}
+
             {/* Publications Grid */}
             <div className="space-y-6">
                 {filteredPublications.length === 0 ? (
@@ -237,6 +257,27 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     )}
 
                                     <div className="flex flex-wrap gap-2 mt-auto">
+                                        {pub.url && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setActivePublicationId(pub.id);
+                                                    window.requestAnimationFrame(() => {
+                                                        document.getElementById('publication-reader')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                    });
+                                                }}
+                                                aria-label={`Read ${pub.title} online`}
+                                                title="Read online"
+                                                className={cn(
+                                                    "inline-flex items-center justify-center w-7 h-7 rounded-md text-xs font-medium transition-colors",
+                                                    activePublicationId === pub.id
+                                                        ? "bg-accent text-white"
+                                                        : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white"
+                                                )}
+                                            >
+                                                ▶
+                                            </button>
+                                        )}
                                         {pub.code && (
                                             <a
                                                 href={pub.code}
