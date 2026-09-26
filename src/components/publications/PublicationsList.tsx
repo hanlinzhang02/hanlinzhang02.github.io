@@ -27,9 +27,6 @@ export default function PublicationsList({ config, publications, embedded = fals
     const [selectedYear, setSelectedYear] = useState<number | 'all'>('all');
     const [selectedType, setSelectedType] = useState<string | 'all'>('all');
     const [showFilters, setShowFilters] = useState(false);
-    const [activePublicationId, setActivePublicationId] = useState<string | null>(
-        () => publications.find((pub) => pub.url)?.id ?? null
-    );
 
     // Extract unique years and types for filters
     const years = useMemo(() => {
@@ -84,7 +81,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             placeholder={messages.publications.searchPlaceholder}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus:ring-2 focus:ring-accent focus:border-accent text-neutral-900 dark:text-neutral-100"
                         />
                     </div>
                     <button
@@ -176,17 +173,6 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             </button>
                                         ))}
                                     </div>
-
-                                    {activePublicationId === pub.id && pub.url && (
-                                        <div className="mt-4 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white shadow-sm">
-                                            <iframe
-                                                key={pub.id}
-                                                src={`${pub.url}#toolbar=0&navpanes=0`}
-                                                title={`${pub.title} online reader`}
-                                                className="w-full h-[80vh] min-h-[720px]"
-                                            />
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         </motion.div>
@@ -230,7 +216,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
                                         {pub.authors.map((author, idx) => (
                                             <span key={idx}>
-                                                <span className={`${author.isHighlighted ? 'font-semibold text-accent' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'decoration-accent' : 'decoration-neutral-400'}` : ''}`}>
+                                                <span className={`${author.isHighlighted ? 'font-semibold text-accent' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-400'}` : ''}`}>
                                                     {author.name}
                                                 </span>
                                                 {author.isCorresponding && (
@@ -251,28 +237,12 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     )}
 
                                     <div className="flex flex-wrap gap-2 mt-auto">
-                                        {pub.url && (
-                                            <button
-                                                type="button"
-                                                onClick={() => setActivePublicationId(pub.id)}
-                                                aria-label={`Read ${pub.title} online`}
-                                                title="Read online"
-                                                className={cn(
-                                                    "inline-flex items-center justify-center w-7 h-7 rounded-md text-xs font-medium transition-colors",
-                                                    activePublicationId === pub.id
-                                                        ? "bg-accent text-white"
-                                                        : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white"
-                                                )}
-                                            >
-                                                ▶
-                                            </button>
-                                        )}
                                         {pub.code && (
                                             <a
                                                 href={pub.code}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
                                             >
                                                 arXiv
                                             </a>
@@ -282,7 +252,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={pub.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
                                             >
                                                 PDF
                                             </a>
