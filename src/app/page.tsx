@@ -6,9 +6,15 @@ import { Publication } from '@/types/publication';
 import { BasePageConfig, PublicationPageConfig, TextPageConfig, CardPageConfig } from '@/types/page';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 
+interface InternshipItem {
+  company: string;
+  date: string;
+  role: string;
+}
+
 interface SectionConfig {
   id: string;
-  type: 'markdown' | 'publications' | 'list';
+  type: 'markdown' | 'publications' | 'list' | 'internships';
   title?: string;
   source?: string;
   filter?: string;
@@ -16,6 +22,7 @@ interface SectionConfig {
   content?: string;
   publications?: Publication[];
   items?: NewsItem[];
+  internships?: InternshipItem[];
 }
 
 interface NewsItem {
