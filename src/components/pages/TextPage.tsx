@@ -11,6 +11,36 @@ interface TextPageProps {
 }
 
 export default function TextPage({ config, content, embedded = false }: TextPageProps) {
+    if (config.source === 'cv.md') {
+        return (
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="max-w-5xl mx-auto"
+            >
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                    <h1 className="text-4xl font-serif font-bold text-primary">{config.title}</h1>
+                    <a
+                        href="/CV.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-accent text-white font-medium hover:opacity-90 transition-opacity"
+                    >
+                        Download CV
+                    </a>
+                </div>
+                <div className="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white shadow-sm">
+                    <iframe
+                        src="/CV.pdf#toolbar=0&navpanes=0"
+                        title="Hanlin Zhang CV"
+                        className="w-full h-[80vh] min-h-[720px]"
+                    />
+                </div>
+            </motion.div>
+        );
+    }
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
