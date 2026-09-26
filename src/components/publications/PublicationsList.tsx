@@ -30,7 +30,6 @@ export default function PublicationsList({ config, publications, embedded = fals
     const [activePublicationId, setActivePublicationId] = useState<string | null>(
         () => publications.find((pub) => pub.url)?.id ?? null
     );
-    const activePublication = publications.find((pub) => pub.id === activePublicationId && pub.url);
 
     // Extract unique years and types for filters
     const years = useMemo(() => {
@@ -177,28 +176,23 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             </button>
                                         ))}
                                     </div>
+
+                                    {activePublicationId === pub.id && pub.url && (
+                                        <div className="mt-4 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white shadow-sm">
+                                            <iframe
+                                                key={pub.id}
+                                                src={`${pub.url}#toolbar=0&navpanes=0`}
+                                                title={`${pub.title} online reader`}
+                                                className="w-full h-[80vh] min-h-[720px]"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
             </div>
-
-            {activePublication?.url && (
-                <section id="publication-reader" className="mb-10">
-                    <h2 className="text-xl font-semibold text-primary mb-4">
-                        <FormattedBibTeXText nodes={activePublication.titleNodes} fallback={activePublication.title} />
-                    </h2>
-                    <div className="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white shadow-sm">
-                        <iframe
-                            key={activePublication.id}
-                            src={`${activePublication.url}#toolbar=0&navpanes=0`}
-                            title={`${activePublication.title} online reader`}
-                            className="w-full h-[80vh] min-h-[720px]"
-                        />
-                    </div>
-                </section>
-            )}
 
             {/* Publications Grid */}
             <div className="space-y-6">
@@ -260,12 +254,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                         {pub.url && (
                                             <button
                                                 type="button"
-                                                onClick={() => {
-                                                    setActivePublicationId(pub.id);
-                                                    window.requestAnimationFrame(() => {
-                                                        document.getElementById('publication-reader')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                                    });
-                                                }}
+                                                onClick={() => setActivePublicationId(pub.id)}
                                                 aria-label={`Read ${pub.title} online`}
                                                 title="Read online"
                                                 className={cn(
